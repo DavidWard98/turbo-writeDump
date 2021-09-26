@@ -10,14 +10,14 @@
 		"Other"
 	],
 	"activationEvents": [
-        "onCommand:turbo-writedump.helloWorld"
+        "onLanguage:cfml"
 	],
 	"main": "./out/extension.js",
 	"contributes": {
 		"commands": [
 			{
-				"command": "turbo-writedump.helloWorld",
-				"title": "Hello World"
+				"command": "turbo-writedump.writeDump",
+				"title": "Turbo writeDump"
 			}
 		]
 	},
