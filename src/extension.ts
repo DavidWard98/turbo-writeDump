@@ -5,7 +5,7 @@ import * as vscode from 'vscode';
 // this method is called when your extension is activated
 // your extension is activated the very first time the command is executed
 export function activate(context: vscode.ExtensionContext) {
-	
+
 	// Use the console to output diagnostic information (console.log) and errors (console.error)
 	// This line of code will only be executed once when your extension is activated
 	const logger = vscode.window.createOutputChannel('logger');
@@ -19,20 +19,20 @@ export function activate(context: vscode.ExtensionContext) {
 		vscode.window.showInformationMessage('WriteDump!');
 		let editor = vscode.window?.activeTextEditor;
 
-		if(!editor){
+		if (!editor) {
 			logger.appendLine("Editor is null");
-		}else{
+		} else {
 			logger.appendLine("Editor is not null");
 
-			const pos = new vscode.Position( 0 , 0 );
+			const pos = new vscode.Position(0, 0);
 			const snippet = new vscode.SnippetString('writeDump("Something)');
 
-			editor.insertSnippet(snippet, pos);
+			editor.edit((editBuilder) => { editBuilder.insert(pos, '\nWriteDump("CursorValue");'); });
 		}
 	});
-	
+
 	context.subscriptions.push(disposable);
 }
 
 // this method is called when your extension is deactivated
-export function deactivate() {}
+export function deactivate() { }
