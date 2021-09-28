@@ -25,8 +25,6 @@ export function activate(context: vscode.ExtensionContext) {
 			logger.appendLine("Editor is not null");
 
 			const pos = new vscode.Position(0, 0);
-			const snippet = new vscode.SnippetString('writeDump("Something)');
-
 			editor.edit((editBuilder) => { editBuilder.insert(pos, '\nWriteDump("CursorValue");'); });
 		}
 	});
