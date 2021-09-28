@@ -8,17 +8,29 @@ export function activate(context: vscode.ExtensionContext) {
 	
 	// Use the console to output diagnostic information (console.log) and errors (console.error)
 	// This line of code will only be executed once when your extension is activated
-	console.log('Congratulations, your extension "turbo-writedump" is now active!');
+	const logger = vscode.window.createOutputChannel('logger');
+	logger.show();
+	logger.appendLine('Congratulations, your extension "turbo-writedump" is now active!');
 
 	// The command has been defined in the package.json file
 	// Now provide the implementation of the command with registerCommand
 	// The commandId parameter must match the command field in package.json
 	let disposable = vscode.commands.registerCommand('turbo-writedump.writeDump', () => {
-		// The code you place here will be executed every time your command is executed
-		// Display a message box to the user
 		vscode.window.showInformationMessage('WriteDump!');
-	});
+		let editor = vscode.window?.activeTextEditor;
 
+		if(!editor){
+			logger.appendLine("Editor is null");
+		}else{
+			logger.appendLine("Editor is not null");
+
+			const pos = new vscode.Position( 0 , 0 );
+			const snippet = new vscode.SnippetString('writeDump("Something)');
+
+			editor.insertSnippet(snippet, pos);
+		}
+	});
+	
 	context.subscriptions.push(disposable);
 }
 
