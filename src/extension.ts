@@ -24,8 +24,12 @@ export function activate(context: vscode.ExtensionContext) {
 		} else {
 			logger.appendLine("Editor is not null");
 
+			const selectedRange = new vscode.Range(editor.selection.start, editor.selection.end);
+			const selectedText = editor.document.getText(selectedRange);
+			logger.appendLine(`Selected text is: ${selectedText}`);
+
 			const pos = new vscode.Position(0, 0);
-			editor.edit((editBuilder) => { editBuilder.insert(pos, '\nWriteDump("CursorValue");'); });
+			editor.edit((editBuilder) => { editBuilder.insert(pos, `WriteDump("#${selectedText}#");`); });
 		}
 	});
 
